@@ -49,7 +49,7 @@ initrd ${boot-url}/tools/dban-2.3.0_i586.iso
 boot
 
 :gpart
-kernel ${boot-url}/gparted/vmlinuz boot=live config union=aufs noswap noprompt vga=788 fetch=${boot-url}/gparted/filesystem.squashfs
+kernel ${boot-url}/gparted/vmlinuz boot=live config components union=overlay username=user noswap noeject ip= vga=788 fetch=${boot-url}/gparted/filesystem.squashfs
 initrd ${boot-url}/gparted/initrd.img
 boot
 
