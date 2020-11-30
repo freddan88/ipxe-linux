@@ -39,10 +39,9 @@ Edit: config/general.h and config/console.h to include console commands in compi
   - Uncomment #define CONSOLE_FRAMEBUFFER
   - From: // #define CONSOLE_FRAMEBUFFER to: #define CONSOLE_FRAMEBUFFER
 
-  ```bash
-  $ cd ipxe/src && make all
-  $ cd ipxe/src && make bin-x86_64-efi/ipxe.efi
-  ```
+#### Compile sources
+
+> $ make all && make bin-x86_64-efi/ipxe.efi
 
 ### 3. Copy files to tftp and html-root
 
