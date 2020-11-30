@@ -79,7 +79,7 @@ $ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxe_men
 
 ### 6. Edit permissions on tftp-folder
 
-- sudo chmod -r 777 /var/tftp
+- sudo chmod -R 777 /srv/tftp
 - sudo chown -R tftp:nogroup /srv/tftp
 
 ### Try to boot some clients ower the network
