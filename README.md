@@ -17,7 +17,7 @@ We are going to install and configure a pxe-server in Linux. This can be used to
 ### 1. Download and install dependencies and recommended software
 
 ```bash
-$ sudo apt install isc-dhcp-server tftpd-hpa net-tools git nano zsh neofetch gcc binutils make \
+sudo apt install isc-dhcp-server tftpd-hpa net-tools git nano zsh neofetch gcc binutils make \
 perl unzip liblzma-dev liblzma5 mtools genisoimage syslinux apache2 build-essential liblzma-dev -y
 ```
 
@@ -41,7 +41,7 @@ Edit: config/general.h and config/console.h to include console commands in compi
 
 #### Compile sources
 
-> $ make all && make bin-x86_64-efi/ipxe.efi
+> make all && make bin-x86_64-efi/ipxe.efi
 
 ### 3. Copy files to tftp and html-root
 
