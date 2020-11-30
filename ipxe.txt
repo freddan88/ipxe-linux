@@ -1,0 +1,52 @@
+ipxe-server ubuntu 20.04
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install isc-dhcp-server tftpd-hpa net-tools git nano zsh neofetch gcc binutils make perl liblzma-dev liblzma5 mtools genisoimage syslinux apache2 build-essential liblzma-dev unzip -y
+
+cd /tmp && git clone git://git.ipxe.org/ipxe.git && cd ipxe/src
+nano config/general.h
+nano config/console.h
+cd ipxe/src && make all
+cd ipxe/src && make bin-x86_64-efi/ipxe.efi
+
+sudo cp bin/ipxe.pxe /srv/tftp
+sudo cp bin/undionly.kpxe /srv/tftp
+sudo cp bin-x86_64-efi/ipxe.efi /srv/tftp
+
+sudo nano /srv/tftp/ipxe_menu.txt
+sudo nano /etc/default/tftpd-hpa
+sudo nano /etc/dhcp/dhcpd.conf
+sudo cp /usr/lib/syslinux/memdisk /var/www/html
+cd /var/www/html && sudo wget http://boot.ipxe.org/ipxe.png
+cd /var/www/html && sudo wget http://git.ipxe.org/releases/wimboot/wimboot-latest.zip
+cd /srv/tftp && sudo wget http://erwan.labalec.fr/other/ipxe-snponly-x86-64.efi
+
+sudo chown -R tftp:nogroup /srv/tftp
+
+if exists user-class and ( option user-class = "iPXE" ) {
+	filename "ipxe_menu.txt";
+} else {
+	filename "undionly.kpxe";
+}
+
+# setMenu Timeout
+set menu-timeout 5000
+set submenu-timeout ${menu-timeout}
+
+# setMenu Default to Exit after timeout
+isset ${menu-default} || set menu-default exit
+
+console --picture http://${dhcp-server}/ipxe.png
+
+########## MAIN MENU ##########
+:start
+menu iPXE Boot Menu
+item--gap
+item reboot Reboot
+choose --default exit --timeout 30000 target && goto ${target}
+
+:reboot
+reboot
+
+:exit
+exit
