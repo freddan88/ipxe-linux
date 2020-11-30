@@ -1,0 +1,77 @@
+#!ipxe
+# menu.ipxe by stefanl
+# hints from:
+# http://jpmens.net/2011/07/18/network-booting-machines-over-http/
+# https://gist.github.com/2234639
+# http://ipxe.org/cmd/menu
+
+# menu [--name <name>] [--delete] [<title>]
+# item [--menu <menu>] [--key <key>] [--default] [<label>|--gap [<text>]]
+# choose [--menu <menu>] [--default <label>] [--timeout <timeout>] [--keep] <setting>
+
+set boot-url http://${dhcp-server}
+set menu-default winpe_iso
+
+# Setup some basic convenience variables
+set menu-timeout 5000
+
+# Ensure we have menu-default set to something
+isset ${menu-default} || set menu-default exit
+
+console --picture http://${dhcp-server}/ipxe.png
+
+###################### MAIN MENU ####################################
+
+:start
+menu iPXE Boot Menu
+item --gap -- ------------------------- Operating systems ------------------------------
+item winpe_iso		WinPE 32Bit (Memdisk)
+item dban_iso		Dariks Boot And Nuke 32Bit (Memdisk)
+item gpart		    Gparted Live 32Bit (Memdisk)
+item --gap --           ------------------------- Advanced options -------------------------------
+item --key c config     (c)onfigure settings
+item --key s shell      Drop to iPXE (s)hell
+item --key r reboot     (r)eboot computer
+item
+item --key x exit       E(x)it iPXE and continue BIOS boot
+choose --timeout ${menu-timeout} --default ${menu-default} selected || goto cancel
+set menu-timeout 0
+goto ${selected}
+
+:winpe_iso
+kernel ${boot-url}/memdisk iso raw
+initrd ${boot-url}/tools/winpe_x86.iso
+boot
+
+:dban_iso
+kernel ${boot-url}/memdisk iso raw
+initrd ${boot-url}/tools/dban-2.3.0_i586.iso
+boot
+
+:gpart
+kernel ${boot-url}/gparted/vmlinuz boot=live config union=aufs noswap noprompt vga=788 fetch=${boot-url}/gparted/filesystem.squashfs
+initrd ${boot-url}/gparted/initrd.img
+boot
+
+:cancel
+echo You cancelled the menu, dropping you to a shell
+
+:shell
+echo Type exit to get the back to the menu
+shell
+set menu-timeout 0
+goto start
+
+:failed
+echo Booting failed, dropping to shell
+goto shell
+
+:reboot
+reboot
+
+:exit
+exit
+
+:config
+config
+goto start

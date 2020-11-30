@@ -61,3 +61,12 @@ $ sudo cp ipxe.png /var/www/html
 $ sudo cp wimboot*/wimboot /var/www/html
 $ sudo cp /usr/lib/syslinux/memdisk /var/www/html
 ```
+
+### 4. Download new configuration and restart DHCP
+
+```bash
+$ cd /etc/dhcp
+$ mv dhcpd.conf dhcpd.conf.old
+$ sudo wget
+$
+```
