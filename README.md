@@ -66,7 +66,43 @@ $ sudo cp /usr/lib/syslinux/memdisk /var/www/html
 
 ```bash
 $ cd /etc/dhcp
-$ mv dhcpd.conf dhcpd.conf.old
-$ sudo wget
-$
+$ sudo mv dhcpd.conf dhcpd.conf.old
+$ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/dhcpd.conf
+$ sudo service isc-dhcp-server restart
 ```
+
+### 5. Download iPXE-menu by stefan1 from forum.ipxe.org
+
+```bash
+$ cd /srv/tftp
+$ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxe_menu.txt
+```
+
+### 6. Edit permissions on tftp-folder
+
+- sudo chmod -r 777 /var/tftp
+- sudo chown -R tftp:nogroup /srv/tftp
+
+### Try to boot some clients ower the network
+
+Important configuration files:
+
+- /srv/tftp/ipxe_menu.txt
+- /etc/default/tftpd-hpa
+- /etc/dhcp/dhcpd.conf
+
+### Resources
+
+- https://askubuntu.com/questions/851433/kernel-doesnt-support-pic-mode-for-compiling
+- https://backreference.org/2013/11/24/pxe-server-with-dnsmasq-apache-and-ipxe
+- https://www.youtube.com/watch?v=dCod6zG8ijw
+- https://forum.ipxe.org/showthread.php?tid=6065
+- https://ipxe.org/appnote/buildtargets
+- https://ipxe.org/howto/chainloading
+- https://ipxe.org/buildcfg/image_png
+- https://ipxe.org/howto/dhcpd
+- https://ipxe.org/cmd/console
+- https://ipxe.org/wimboot
+- https://ipxe.org/buildcfg
+- https://networkboot.org
+- https://github.com/ipxe
