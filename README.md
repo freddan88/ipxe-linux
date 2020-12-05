@@ -8,7 +8,7 @@ We are going to install and configure a pxe-server in Linux. This can be used to
 
 - [Ubuntu Server 20.04 64Bit](http://se.releases.ubuntu.com/20.04/ubuntu-20.04.1-live-server-amd64.iso)
 
-|          |                               |
+| My Links |                               |
 | -------- | ----------------------------- |
 | Webpage: | http://www.leemann.se/fredrik |
 | Github:  | https://github.com/freddan88  |
