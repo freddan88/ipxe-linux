@@ -115,9 +115,9 @@ Run script anywhere from terminal
 
 - https://askubuntu.com/questions/851433/kernel-doesnt-support-pic-mode-for-compiling
 - https://backreference.org/2013/11/24/pxe-server-with-dnsmasq-apache-and-ipxe
+- https://www.youtube.com/watch?v=hvRoPsgUHI4
 - https://www.youtube.com/watch?v=dCod6zG8ijw
 - https://forum.ipxe.org/showthread.php?tid=6065
-- https://www.youtube.com/watch?v=hvRoPsgUHI4
 - https://ipxe.org/appnote/buildtargets
 - https://ipxe.org/howto/chainloading
 - https://ipxe.org/buildcfg/image_png
