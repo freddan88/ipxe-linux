@@ -12,7 +12,7 @@ We are going to install and configure a pxe-server in Linux. This can be used to
 | -------- | ----------------------------- |
 | Webpage: | http://www.leemann.se/fredrik |
 | Github:  | https://github.com/freddan88  |
-| video:   |                               |
+| Video:   |                               |
 
 ### 1. Download and install dependencies and recommended software
 
@@ -95,7 +95,7 @@ Important configuration files:
 ```bash
 $ cd /opt
 $ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxesrv.sh
-$ sudo chown root:root ipxesrv.sh && sudo chmod 777 ipxesrv.sh
+$ sudo chown root:root ipxesrv.sh && sudo chmod 775 ipxesrv.sh
 $ sudo ln -sf /opt/ipxesrv.sh /usr/local/sbin/ipxesrv
 ```
 
