@@ -82,13 +82,34 @@ $ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxe_men
 - sudo chmod -R 777 /srv/tftp
 - sudo chown -R tftp:nogroup /srv/tftp
 
-### Try to boot some clients ower the network
+### Try to boot some clients over the network
 
 Important configuration files:
 
 - /srv/tftp/ipxe_menu.txt
 - /etc/default/tftpd-hpa
 - /etc/dhcp/dhcpd.conf
+
+### Download script to manage this server
+
+```bash
+$ cd /opt
+$ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxesrv.sh
+$ sudo chown root:root ipxesrv.sh && sudo chmod 777 ipxesrv.sh
+$ sudo ln -sf /opt/ipxesrv.sh /usr/local/sbin/ipxesrv
+```
+
+Run script anywhere from terminal
+
+| Arguments in script |                                              |
+| ------------------- | -------------------------------------------- |
+| ipxesrv start       | Start the services for ipxe pxe-server       |
+| ipxesrv stop        | Stop the services for ipxe pxe-server        |
+| ipxesrv restart     | Restart the services for ipxe pxe-server     |
+| ipxesrv status      | Check status for services in ipxe pxe-server |
+| ipxesrv perm        | Change permissions on folders in pxe-server  |
+| ipxesrv enable      | Enable autostart and start ipxe pxe-server   |
+| ipxesrv disable     | Disable autostart and stop ipxe pxe-server   |
 
 ### Resources
 
