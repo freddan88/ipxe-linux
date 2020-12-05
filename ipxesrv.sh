@@ -25,8 +25,8 @@ case $1 in
 start)
 echo " "
 	tftp_status=$(service tftpd-hpa status | grep Active);
-	if [[ $string =~ "My" ]]; then
-	echo "It's there!"
+	if [[ $string =~ "running)" ]]; then
+	echo "Service is currently running"
 	fi
 
 	# if [ -f /var/run/dhcp-server/dhcpd.pid ]; then
