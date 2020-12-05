@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Date: 2020-12-05
 # Author: www.leemann.se/fredrik
 #################
@@ -21,9 +21,6 @@ if [ "$(id -u)" != "0" ]; then
 fi
 ##########
 case $1 in
-
-
-
 
 start)
 echo " "
