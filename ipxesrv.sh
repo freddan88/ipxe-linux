@@ -27,28 +27,19 @@ case $1 in
 
 start)
 echo " "
-	tftp_status=$(service tftpd-hpa status | grep Active)
-	echo tftp_status
-	if [[ "$tftp_status" = *(running)* ]]; then
-		echo "Service is currently running"
-		exit
-	fi
-	# if [ -f /var/run/dhcp-server/dhcpd.pid ]; then
-	# 	echo "Services is running"
-	# 	echo "-------------------"
-	# 	exit
-	# else
-	# 	echo "Starting Lighttpd - Service for pxesrv" && sleep 1
-	# 	echo " " && echo "  PID TTY          TIME CMD"
-	# 	$root_folder/sbin/lighttpd -f $root_folder/pxe/configs/lighttpd.conf
-	# 	ps -e | grep $(cat $root_folder/tmp/pid/lighttpd.pid) 2>/dev/null
-	# echo " "
-	# 	echo "Starting Dnsmasq - Service for pxesrv" && sleep 1
-	# 	echo " " && echo "  PID TTY          TIME CMD"
-	# 	$root_folder/sbin/dnsmasq -x $root_folder/tmp/pid/dnsmasq.pid --conf-file=$root_folder/pxe/configs/dnsmasq.conf --dhcp-leasefile=$root_folder/pxe/dnsmasq_dhcp-leases.txt
-	# 	ps -e | grep $(cat 2>/dev/null $root_folder/tmp/pid/dnsmasq.pid) 2>/dev/null
-	# 	touch $root_folder/tmp/pid/pxesrv.lock
-	# fi
+    tftp_status=$(service tftpd-hpa status | grep Active)
+    dhcp_status=$(service isc-dhcp-server status | grep Active)
+    if [[ "$tftp_status" = *"(running)"* ]] || [[ "$dhcp_status" = *"(running)"* ]]; then
+        echo "Service IPXE is currently running"
+		echo " "
+        exit
+    fi
+	echo "Starting ISC DHCP Server" && sleep 1
+		service isc-dhcp-server start
+	echo " "
+	echo "Starting TFTPD HPA Server" && sleep 1
+		service tftpd-hpa start
+	echo " "
 echo " "
 ;;
 
