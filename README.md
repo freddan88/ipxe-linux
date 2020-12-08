@@ -67,39 +67,38 @@ $ sudo cp /usr/lib/syslinux/memdisk /var/www/html
 $ cd /etc/dhcp
 $ sudo mv dhcpd.conf dhcpd.conf.old
 $ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/dhcpd.conf
-$ sudo service isc-dhcp-server restart
 ```
 
 ### 5. Download iPXE-menu by stefan1 from forum.ipxe.org
 
 ```bash
-$ cd /srv/tftp
+$ mkdir -p /srv/tftp/menu && cd /srv/tftp/menu
 $ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxe_menu.txt
 ```
 
-### 6. Edit permissions on tftp-folder
+### 6. Download script to manage this server
 
-- sudo chmod -R 777 /srv/tftp
-- sudo chown -R tftp:nogroup /srv/tftp
+```bash
+$ cd /srv
+$ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxesrv.sh
+$ sudo chown root:root ipxesrv.sh && sudo chmod 775 ipxesrv.sh
+$ sudo ln -sf /srv/ipxesrv.sh /usr/local/sbin/ipxesrv
+```
 
-### Try to boot some clients over the network
+### 7. Edit permissions and restart services
 
-Important configuration files:
+- sudo ipxesrv perm
+- sudo ipxesrv restart
+
+### 8. Try to boot some clients over the network
+
+Important configurations:
 
 - /srv/tftp/ipxe_menu.txt
 - /etc/default/tftpd-hpa
 - /etc/dhcp/dhcpd.conf
 
-### Download script to manage this server
-
-```bash
-$ cd /opt
-$ sudo wget https://raw.githubusercontent.com/freddan88/ipxe-linux/main/ipxesrv.sh
-$ sudo chown root:root ipxesrv.sh && sudo chmod 775 ipxesrv.sh
-$ sudo ln -sf /opt/ipxesrv.sh /usr/local/sbin/ipxesrv
-```
-
-Run script anywhere from terminal
+Run script from anywhere:
 
 | Arguments in script |                                              |
 | ------------------- | -------------------------------------------- |
@@ -110,6 +109,46 @@ Run script anywhere from terminal
 | ipxesrv perm        | Change permissions on folders in pxe-server  |
 | ipxesrv enable      | Enable autostart and start ipxe pxe-server   |
 | ipxesrv disable     | Disable autostart and stop ipxe pxe-server   |
+
+## Optional samba configuration
+
+Install samba:
+
+> sudo apt install samba
+
+Append configuration to smb.conf:
+
+> sudo nano /etc/samba/smb.conf
+
+```
+[tftp]
+force user = tftp
+force group = nogroup
+comment = ipxe-tftp
+valid users = tftp
+path = /srv/tftp
+read only = yes
+printable = no
+writable = yes
+guest ok = no
+public = no
+```
+
+### Restart services and finalize configuration
+
+Add password for samba to tftp
+
+> smbpasswd -a tftp
+
+Restart and set permissions
+
+```bash
+$ sudo service smbd restart
+$ sudo service nmbd restart
+$ sudo ipxesrv perm
+```
+
+### Try to mount the share from another computer eg Windows
 
 ### Resources
 

@@ -64,19 +64,15 @@ echo " "
 
 perm)
 echo " "
-	chown -R $tftp_user:$tftp_group $tftp_folder 2>/dev/null
-	chown -R $http_user:$http_group $http_folder 2>/dev/null
-	chmod -R 775 $tftp_folder 2>/dev/null
-	chmod -R 775 $http_folder 2>/dev/null
+	chown -R $tftp_user:$tftp_group $tftp_folder
+	chown -R $http_user:$http_group $http_folder
+	find $tftp_folder -type d -exec chmod 0755 {} \;
+	find $tftp_folder -type f -exec chmod 0744 {} \;
+	find $http_folder -type d -exec chmod 0755 {} \;
+	find $http_folder -type f -exec chmod 0764 {} \;
 	echo "Changing permissions and owner on: $tftp_folder"
 	echo " "
 	echo "Changing permissions and owner on: $http_folder"
-	# chown -R $root_user:$root_group $root_folder
-	# chown -R $service_user:$service_group $root_folder/pxe $root_folder/share 2>/dev/null
-	# find $root_folder -type d -exec chmod 0755 {} \;
-	# find $root_folder -type f -exec chmod 0764 {} \;
-	# chmod -R 775 $root_folder/pxe/pxe-boot
-	# chmod -R 775 $root_folder/tmp
 echo " "
 ;;
 
