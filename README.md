@@ -94,7 +94,7 @@ $ sudo ln -sf /srv/ipxesrv.sh /usr/local/sbin/ipxesrv
 
 Important configurations:
 
-- /srv/tftp/ipxe_menu.txt
+- /srv/tftp/menu/ipxe_menu.txt
 - /etc/default/tftpd-hpa
 - /etc/dhcp/dhcpd.conf
 
@@ -114,7 +114,7 @@ Run script from anywhere:
 
 Install samba:
 
-> sudo apt install samba
+> sudo apt install samba -y
 
 Append configuration to smb.conf:
 
@@ -138,7 +138,7 @@ public = no
 
 Add password for samba to tftp
 
-> smbpasswd -a tftp
+> sudo smbpasswd -a tftp
 
 Restart and set permissions
 
