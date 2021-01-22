@@ -2,7 +2,8 @@
 
 ---
 
-We are going to install and configure a pxe-server in Linux. This can be used to boot computers over the network and install software.
+We are going to install and configure a pxe-server in Linux. 
+This can be used to boot computers over the network and install software.
 
 ### Tested on:
 
