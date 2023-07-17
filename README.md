@@ -13,7 +13,6 @@ This can be used to boot computers over the network and install software.
 | -------- | ----------------------------- |
 | Webpage: | http://www.leemann.se/fredrik |
 | Github:  | https://github.com/freddan88  |
-| Video:   |                               |
 
 ### 1. Download and install dependencies and recommended software
 
